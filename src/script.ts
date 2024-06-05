@@ -1,13 +1,13 @@
 import * as THREE from 'three';
 import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls.js';
 import { Timer } from 'three/addons/misc/Timer.js';
-import GUI from 'lil-gui';
+// import GUI from 'lil-gui';
 
 /**
  * Base
  */
 // Debug
-const gui = new GUI();
+// const gui = new GUI();
 
 // Canvas
 const canvas = document.querySelector('canvas.webgl') as HTMLElement;
@@ -335,6 +335,34 @@ const renderer = new THREE.WebGLRenderer({
 });
 renderer.setSize(sizes.width, sizes.height);
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+/**
+ * Shadows
+ */
+//Renderer  
+renderer.shadowMap.enabled = true;
+renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+
+// Cast and Receive
+directionalLight.castShadow = true;
+ghost1.castShadow = true;
+ghost2.castShadow = true;
+ghost3.castShadow = true;
+
+walls.castShadow = true;
+walls.receiveShadow = true;
+
+roof.castShadow = true;
+
+floor.receiveShadow = true;
+
+
+
+for (const grave of graves.children) {
+  console.log(grave, 'single');
+  grave.castShadow = true;
+  grave.receiveShadow = true;
+}
 
 /**
  * Animate
